@@ -83,7 +83,7 @@ public class SistemaController {
 
     public void distribuirAlimento(int id,
                                    String cpfBeneficiario,
-                                   int idAlimento,
+                                   String nomeAlimento,
                                    int quantidade)
             throws EstoqueInsuficienteException {
 
@@ -94,7 +94,7 @@ public class SistemaController {
             return;
         }
 
-        Alimento alimento = banco.buscarAlimento(idAlimento);
+        Alimento alimento = banco.buscarAlimento(nomeAlimento);
 
         if (alimento == null) {
             System.out.println("Alimento não encontrado.");

@@ -81,12 +81,14 @@ public class BancoSimulado {
         return null;
     }
 
-    public Alimento buscarAlimento (int nomeAlimento) {
+    public Alimento buscarAlimento(String nome) {
+
         for (Alimento alimento : alimentos) {
-            if (alimento.getNome().equals(nomeAlimento)) {
+            if (alimento.getNome().equalsIgnoreCase(nome)) {
                 return alimento;
             }
         }
+
         return null;
     }
 }

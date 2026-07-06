@@ -61,8 +61,8 @@ public class SistemaController {
         return banco.getDoacoes();
     }
 
-    public void registrarDoacao(int id, String cpfDoador, Alimento alimento)
-        throws AlimentosVencidoException, EstoqueInsuficienteException {
+    public void registrarDoacao(int id, String cpfDoador, Alimento alimento, java.time.LocalDate dataDoacao)
+            throws AlimentosVencidoException, EstoqueInsuficienteException {
 
         Doador doador = banco.buscarDoador(cpfDoador);
 
@@ -74,7 +74,7 @@ public class SistemaController {
             throw new AlimentosVencidoException("Alimento vencido.");
         }
 
-        Doacao doacao = new Doacao(id, doador, null);
+        Doacao doacao = new Doacao(id, doador, dataDoacao);
         doacao.adicionarAlimento(alimento);
 
         banco.adicionarDoacao(doacao);
@@ -84,7 +84,8 @@ public class SistemaController {
     public void distribuirAlimento(int id,
                                    String cpfBeneficiario,
                                    String nomeAlimento,
-                                   int quantidade)
+                                   int quantidade,
+                                   java.time.LocalDate dataDistribuicao)
             throws EstoqueInsuficienteException {
 
         Beneficiario beneficiario = banco.buscarBeneficiario(cpfBeneficiario);
@@ -108,13 +109,14 @@ public class SistemaController {
         alimento.setQuantidade(alimento.getQuantidade() - quantidade);
 
         Alimento entregue = new Alimento(
+                alimento.getId(),
                 alimento.getNome(),
                 alimento.getTipo(),
                 alimento.getPeso(),
                 quantidade, alimento.getDataValidade());
 
         Distribuicao distribuicao =
-                new Distribuicao(id, beneficiario, null);
+                new Distribuicao(id, beneficiario, dataDistribuicao);
 
         distribuicao.adicionarAlimento(entregue);
 
@@ -169,15 +171,15 @@ public class SistemaController {
     }
 
     public void cadastrarDoador(Doador doador) {
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarDoador'");
+            banco.adicionarDoador(doador);
     }
 
     public void cadastrarBeneficiario(Beneficiario beneficiario) {
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarBeneficiario'");
+        banco.adicionarBeneficiario(beneficiario);
     }
 
     public void cadastrarAlimento(Alimento alimento) {
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarAlimento'");
+        banco.adicionarAlimento(alimento);
     }
 
     public void distribuirAlimento1(int codigo, String cpf, int idAlimento, int quantidade) {

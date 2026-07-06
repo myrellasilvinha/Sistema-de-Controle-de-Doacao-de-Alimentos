@@ -4,13 +4,15 @@ import interfaces.Exibivel;
 import java.time.LocalDate;
 
 public class Alimento implements Exibivel {
+    private int id;
     private String nome;
     private String tipo;
     private double peso;
     private int quantidade;
     private LocalDate dataValidade;
 
-    public Alimento (String nome, String tipo, double peso, int quantidade, LocalDate dataValidade) {
+    public Alimento (int id, String nome, String tipo, double peso, int quantidade, LocalDate dataValidade) {
+        this.id = id;
         this.nome = nome;
         this.tipo = tipo;
         this.peso = peso;
@@ -18,8 +20,11 @@ public class Alimento implements Exibivel {
         this.dataValidade = dataValidade;
     }
 
-    public Alimento(int id, String nome2, int quantidade2, LocalDate validade) {
-        //TODO Auto-generated constructor stub
+    public Alimento(int id, String nome, int quantidade, LocalDate validade) {
+        this(id, nome, "Não informado", 0.0, quantidade, validade);
+    }
+    public int getId(){
+        return id;
     }
 
     public String getNome() {

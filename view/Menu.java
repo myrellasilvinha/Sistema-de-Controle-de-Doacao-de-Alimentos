@@ -116,8 +116,20 @@ public class Menu {
         int quantidade = sc.nextInt();
         sc.nextLine();
 
+        System.out.print("Ano da distribuição: ");
+        int anoDistribuicao = sc.nextInt();
+
+        System.out.print("Mês da distribuição: ");
+        int mesDistribuicao = sc.nextInt();
+
+        System.out.print("Dia da distribuição: ");
+        int diaDistribuicao = sc.nextInt();
+        sc.nextLine();
+
+        LocalDate dataDistribuicao = LocalDate.of(anoDistribuicao, mesDistribuicao, diaDistribuicao);
+
         try {
-            controller.distribuirAlimento(id, cpfBeneficiario, nomeAlimento, quantidade);
+            controller.distribuirAlimento(id, cpfBeneficiario, nomeAlimento, quantidade, dataDistribuicao);
         } catch (EstoqueInsuficienteException e) {
             System.out.println("Erro ao distribuir alimento: " + e.getMessage());
         }
@@ -187,6 +199,12 @@ public class Menu {
         int quantidade = sc.nextInt();
         sc.nextLine();
 
+        System.out.print("Tipo: ");
+        String tipo = sc.nextLine();
+
+        System.out.print("Peso: ");
+        int peso = sc.nextInt();
+
         System.out.print("Ano de validade: ");
         int ano = sc.nextInt();
 
@@ -199,7 +217,7 @@ public class Menu {
 
         LocalDate validade = LocalDate.of(ano, mes, dia);
 
-        Alimento alimento = new Alimento(id, nome, quantidade, validade);
+        Alimento alimento = new Alimento(id, nome, tipo, peso,   quantidade, validade);
 
         controller.cadastrarAlimento(alimento);
 
@@ -243,7 +261,19 @@ public class Menu {
 
             Alimento alimento = new Alimento( id, nome, quantidade, LocalDate.of(ano, mes, dia));
 
-            controller.registrarDoacao(codigo, cpf, alimento);
+            System.out.print("Ano da doação: ");
+            int anoDoacao = sc.nextInt();
+
+            System.out.print("Mês da doação: ");
+            int mesDoacao = sc.nextInt();
+
+            System.out.print("Dia da doação: ");
+            int diaDoacao = sc.nextInt();
+            sc.nextLine();
+
+            LocalDate dataDoacao = LocalDate.of(anoDoacao, mesDoacao, diaDoacao);
+
+            controller.registrarDoacao(codigo, cpf, alimento, dataDoacao);
 
         } catch (AlimentosVencidoException e) {
             System.out.println(e.getMessage());

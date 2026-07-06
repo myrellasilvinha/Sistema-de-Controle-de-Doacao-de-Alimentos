@@ -80,7 +80,14 @@ public class SistemaController {
         doacao.adicionarAlimento(alimento);
 
         banco.adicionarDoacao(doacao);
-        banco.adicionarAlimento(alimento);
+
+        Alimento existente = banco.buscarAlimento(alimento.getNome());
+
+        if (existente != null) {
+            existente.setQuantidade(existente.getQuantidade() - alimento.getQuantidade());
+        } else {
+            banco.adicionarAlimento(alimento);
+        }
     }
 
     public void distribuirAlimento(int id,
@@ -196,7 +203,7 @@ public class SistemaController {
     }
 
     public void cadastrarDoador(Doador doador) {
-            banco.adicionarDoador(doador);
+        banco.adicionarDoador(doador);
     }
 
     public void cadastrarBeneficiario(Beneficiario beneficiario) {

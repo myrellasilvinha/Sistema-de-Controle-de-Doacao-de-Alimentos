@@ -86,7 +86,7 @@ public class SistemaController {
         Alimento existente = banco.buscarAlimento(alimento.getNome());
 
         if (existente != null) {
-            existente.setQuantidade(existente.getQuantidade() - alimento.getQuantidade());
+            existente.setQuantidade(existente.getQuantidade() + alimento.getQuantidade());
         } else {
             banco.adicionarAlimento(alimento);
         }

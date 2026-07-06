@@ -2,6 +2,8 @@ package control;
 
 import exception.AlimentosVencidoException;
 import exception.EstoqueInsuficienteException;
+
+import java.time.LocalDate;
 import java.util.List;
 import model.Alimento;
 import model.Beneficiario;
@@ -113,6 +115,11 @@ public class SistemaController {
 
         if (alimento.getQuantidade() < quantidade) {
             throw new EstoqueInsuficienteException("Quantidade insuficiente em estoque.");
+        }
+
+        if (alimento.estaVencido()) {
+            System.out.print("Alimento vencido.");
+            return;
         }
 
         alimento.setQuantidade(alimento.getQuantidade() - quantidade);

@@ -1,7 +1,7 @@
 package exception;
 
-public class AlimentosVencidoException extends Exception {
-    public AlimentosVencidoException (String mensagem) {
+public class AlimentosVencidoException extends RuntimeException {
+    public AlimentosVencidoException(String mensagem) {
         super(mensagem);
     }
 }

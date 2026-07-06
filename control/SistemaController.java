@@ -67,12 +67,14 @@ public class SistemaController {
         Doador doador = banco.buscarDoador(cpfDoador);
 
         if (doador == null) {
-            throw new IllegalArgumentException("Doador não encontrado.");
+            System.out.println("Doador não encontrado.");
+            return;
         }
 
         if (alimento.estaVencido()) {
             throw new AlimentosVencidoException("Alimento vencido.");
         }
+
 
         Doacao doacao = new Doacao(id, doador, dataDoacao);
         doacao.adicionarAlimento(alimento);
@@ -140,6 +142,12 @@ public class SistemaController {
 
     public void mostrarDoadores() {
 
+        if (banco.getDoadores().isEmpty()) {
+
+            System.out.println("Sem doadores registrados");
+            return;
+        }
+
         for (Doador d : banco.getDoadores()) {
             d.exibirInformacoes();
         }
@@ -147,6 +155,12 @@ public class SistemaController {
     }
 
     public void mostrarBeneficiarios() {
+
+        if (banco.getBeneficiarios().isEmpty()) {
+
+            System.out.println("Sem Beneficiarios registrados");
+            return;
+        }
 
         for (Beneficiario b : banco.getBeneficiarios()) {
             b.exibirInformacoes();
@@ -156,6 +170,11 @@ public class SistemaController {
 
     public void mostrarHistoricoDoacoes() {
 
+        if (banco.getDoacoes().isEmpty()) {
+
+            System.out.println("Sem doacoes registradas");
+            return;
+        }
         for (Doacao d : banco.getDoacoes()) {
             d.exibirInformacoes();
         }
@@ -163,6 +182,12 @@ public class SistemaController {
     }
 
     public void mostrarHistoricoDistribuicoes() {
+
+        if (banco.getDistribuicoes().isEmpty()) {
+
+            System.out.println("Sem distribuicoes registradas");
+            return;
+        }
 
         for (Distribuicao d : banco.getDistribuicoes()) {
             d.exibirInformacoes();
